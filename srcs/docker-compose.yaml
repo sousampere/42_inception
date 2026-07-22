@@ -1,7 +1,5 @@
-version: "5.1.3"
+version: "2.26.1"
+
 services:
-  nginx:
-    image: nginx
-    ports:
-      - "80:80"
-    restart: always
+  mariadb:
+    image: mariadb
