@@ -1,13 +1,24 @@
 version: "2.26.1"
 
 services:
+
   nginx:
     image: nginx
+    depends_on: ['mariadb']
     ports:
     - 443:443
     networks:
       devnetwork:
 
+  mariadb:
+    image: mariadb
+    ports:
+    - 3306:3306
+    networks:
+      devnetwork:
+
+
+volume
 
 networks:
   devnetwork:
