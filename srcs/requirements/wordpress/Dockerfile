@@ -26,7 +26,5 @@ RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 COPY ./config/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-COPY ./config/gaspardtourdiatfr.xml /gaspardtourdiatfr.xml
-
 EXPOSE 9000
 ENTRYPOINT ["/entrypoint.sh"]
