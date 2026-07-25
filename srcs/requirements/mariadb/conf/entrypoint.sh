@@ -18,13 +18,19 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
         sleep 1
     done
 
-    # Set up database and remote user
+    # Set up db variables
     MYSQL_DATABASE=${MYSQL_DATABASE:-wordpress}
     MYSQL_USER=${MYSQL_USER:-wp_user}
     MYSQL_PASSWORD=${MYSQL_PASSWORD:-wp_password}
     MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_password}
 
     echo "Creating database '$MYSQL_DATABASE' and user '$MYSQL_USER'..."
+
+    # - Change the root password
+    # - Create the database
+    # - Create a mariadb user
+    # - Give all priviledges to the user
+    # - Apply modifications by refreshing mariadb
     mariadb <<EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';
 CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;

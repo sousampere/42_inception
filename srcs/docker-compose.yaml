@@ -3,15 +3,17 @@ version: "3.8"
 services:
 
   nginx:
-    image: nginx
-    depends_on: ['mariadb']
+    build: requirements/nginx
+    depends_on: ['wordpress']
     ports:
     - 443:443
     networks:
       devnetwork:
+    volumes:
+      - wp-data:/var/www/html
 
   mariadb:
-    image: mariadb
+    build: requirements/mariadb
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -24,8 +26,35 @@ services:
     volumes:
       - db-data:/var/lib/mysql
 
+  wordpress:
+    build: requirements/wordpress
+    depends_on: ['mariadb']
+    ports:
+    - 9000:9000
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      TITLE: ${WP_TITLE}
+      WP_ADMIN_USER: ${WP_ADMIN_USER}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+
+      WP_USER: ${WP_USER}
+      WP_USER_EMAIL: ${WP_USER_EMAIL}
+      WP_USER_PASSWORD: ${WP_USER_PASSWORD}
+    networks:
+      devnetwork:
+    volumes:
+      - wp-data:/var/www/html
+
+
 networks:
   devnetwork:
 
 volumes:
   db-data:
+  wp-data:

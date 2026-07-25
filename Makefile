@@ -2,6 +2,7 @@
 install:
 	sudo docker build -t nginx srcs/requirements/nginx
 	sudo docker build -t mariadb srcs/requirements/mariadb
+	sudo docker build -t wordpress srcs/requirements/wordpress
 
 run:
 	docker compose -f srcs/docker-compose.yaml up
@@ -11,6 +12,10 @@ dbshell:
 
 clear_containers:
 	docker rm $$(docker ps -aq)
+
+clear_volumes:
+	docker volume rm srcs_db-data
+	docker volume rm srcs_wp-data
 
 build-nginx:
 	sudo docker build -t nginx srcs/requirements/nginx

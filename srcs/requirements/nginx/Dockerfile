@@ -4,6 +4,7 @@ FROM debian:bookworm-slim
 RUN apt update -y
 RUN apt install nginx -y
 RUN apt install openssl -y
+RUN rm -f /etc/nginx/conf.d/default.conf /etc/nginx/sites-enabled/default
 
 # SSL certificate singing
 RUN openssl req -new -x509 -days 365 -noenc -out /etc/nginx/certificate.pem -keyout /etc/nginx/certificate.key -subj "/C=US/ST=State/L=City/O=42/CN=localhost"
