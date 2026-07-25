@@ -1,4 +1,4 @@
-version: "2.26.1"
+version: "3.8"
 
 services:
 
@@ -12,13 +12,20 @@ services:
 
   mariadb:
     image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
     - 3306:3306
     networks:
       devnetwork:
-
-
-volume
+    volumes:
+      - db-data:/var/lib/mysql
 
 networks:
   devnetwork:
+
+volumes:
+  db-data:
