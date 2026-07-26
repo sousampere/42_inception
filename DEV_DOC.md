@@ -16,20 +16,26 @@ make install-docker # easy install on debian
 The following .env file needs to be filled before building the docker images :
 
 ```bash
-MYSQL_ROOT_PASSWORD=
 MYSQL_DATABASE=
 MYSQL_USER=
-MYSQL_PASSWORD=
 
 DOMAIN_NAME=
 WP_TITLE=
 WP_ADMIN_USER=
-WP_ADMIN_PASSWORD=
 WP_ADMIN_EMAIL=
 
 WP_USER=
 WP_USER_EMAIL=
-WP_USER_PASSWORD=
+```
+
+You will also need to enter the sensitive data for your website informations in each dedicated secret file, in the secrets folder :
+
+```bash
+secrets
+├── MYSQL_PASSWORD.txt
+├── MYSQL_ROOT_PASSWORD.txt
+├── WP_ADMIN_PASSWORD.txt
+└── WP_USER_PASSWORD.txt
 ```
 
 ## Build the docker containers
