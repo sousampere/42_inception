@@ -17,10 +17,8 @@ services:
     build: requirements/mariadb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     secrets:
       - MYSQL_ROOT_PASSWORD
       - MYSQL_PASSWORD

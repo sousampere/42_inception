@@ -53,6 +53,8 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     # Install the theme
     echo "[WP Progress] Installing theme..."
     wp theme install blocksy --activate --path='/var/www/html' --allow-root
+    wp plugin install wordpress-importer --activate --path='/var/www/html' --allow-root
+    wp import /gaspardtourdiatfr.xml --authors=skip -- --path='/var/www/html' --allow-root
 
     # Setup redis
     wp config set WP_REDIS_HOST redis --allow-root --path='/var/www/html'
