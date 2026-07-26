@@ -31,7 +31,7 @@ services:
 
   wordpress:
     build: requirements/wordpress
-    depends_on: ['mariadb']
+    depends_on: ['mariadb', 'redis']
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -57,7 +57,12 @@ services:
       devnetwork:
     volumes:
       - wp-data:/var/www/html
-
+  
+  redis:
+    build: requirements/redis
+    restart: always
+    networks:
+      devnetwork:
 
 networks:
   devnetwork:

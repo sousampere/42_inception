@@ -18,6 +18,7 @@ dbshell:
 	docker exec -it $$(docker compose -f srcs/docker-compose.yml ps -q mariadb) /bin/bash
 
 clear_containers:
+	docker compose -f srcs/docker-compose.yml down
 	-docker rm $$(docker ps -aq)
 
 clear_volumes:

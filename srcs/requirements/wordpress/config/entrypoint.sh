@@ -54,6 +54,11 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     echo "[WP Progress] Installing theme..."
     wp theme install blocksy --activate --path='/var/www/html' --allow-root
 
+    # Setup redis
+    wp config set WP_REDIS_HOST redis --allow-root --path='/var/www/html'
+    wp plugin install redis-cache --activate --path='/var/www/html'  --allow-root
+    wp redis enable --allow-root --path='/var/www/html'
+
     # Ensure correct permissions on host/volume files
     echo "[WP Progress] Adjusting permissions..."
     chown -R www-data:www-data /var/www/html
