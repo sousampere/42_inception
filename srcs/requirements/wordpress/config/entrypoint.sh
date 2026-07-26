@@ -6,14 +6,15 @@ until mariadb-admin ping -h"mariadb" --silent; do
     sleep 2
 done
 
+echo 'mariadb ready.'
+
 if [ ! -f /var/www/html/wp-config.php ]; then
 
-
-
     # Download WordPress core files via CLI if not present
-    wp core download --allow-root --path='/var/www/html'
+    wp core download --allow-root --path='/var/www/html' --force
 
     # Generate wp-config.php with database credentials from environment
+    echo "Configuring wordpress database..."
     wp config create \
         --dbname="${MYSQL_DATABASE}" \
         --dbuser="${MYSQL_USER}" \
@@ -23,6 +24,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --allow-root
 
     # Run core installation
+    echo "Setting up wordpress..."
     wp core install \
         --url="${DOMAIN_NAME}" \
         --title="${WP_TITLE}" \
@@ -34,6 +36,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --allow-root
 
     # Create the secondary non-admin user (Inception requirement)
+    echo "Creating non-admin user..."
     wp user create \
         "${WP_USER}" \
         "${WP_USER_EMAIL}" \
@@ -42,7 +45,12 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --path='/var/www/html' \
         --allow-root
 
+    # Install the theme
+    echo "Installing theme..."
+    wp theme install blocksy --activate --path='/var/www/html' --allow-root
+
     # Ensure correct permissions on host/volume files
+    echo "Adjusting permissions..."
     chown -R www-data:www-data /var/www/html
 
 fi

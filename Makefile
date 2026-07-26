@@ -1,8 +1,10 @@
 
+re: clear_containers clear_volumes install
+
 install:
-	sudo docker build -t nginx srcs/requirements/nginx
 	sudo docker build -t mariadb srcs/requirements/mariadb
 	sudo docker build -t wordpress srcs/requirements/wordpress
+	sudo docker build -t nginx srcs/requirements/nginx
 
 run:
 	docker compose -f srcs/docker-compose.yaml up
@@ -17,15 +19,13 @@ clear_volumes:
 	docker volume rm srcs_db-data
 	docker volume rm srcs_wp-data
 
-build-nginx:
-	sudo docker build -t nginx srcs/requirements/nginx
-
-run-nginx:
-	sudo docker run -p 443:443 nginx
+reset:
+	docker compose -f srcs/docker-compose.yaml build wordpress mariadb nginx
+	docker compose -f srcs/docker-compose.yaml down -v
+	make run
 
 install-docker:
 	sudo apt update
 	sudo apt install -y docker.io docker-compose
 
-clear:
-	docker rm -f $$(docker ps -aq)
+clean: clear_volumes clear_containers
