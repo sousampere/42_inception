@@ -21,6 +21,9 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    secrets:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_PASSWORD
     networks:
       devnetwork:
     volumes:
@@ -45,6 +48,11 @@ services:
       WP_USER: ${WP_USER}
       WP_USER_EMAIL: ${WP_USER_EMAIL}
       WP_USER_PASSWORD: ${WP_USER_PASSWORD}
+    secrets:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_PASSWORD
+      - WP_ADMIN_PASSWORD
+      - WP_USER_PASSWORD
     networks:
       devnetwork:
     volumes:
@@ -53,6 +61,16 @@ services:
 
 networks:
   devnetwork:
+
+secrets:
+  MYSQL_ROOT_PASSWORD:
+    file: ../secrets/MYSQL_ROOT_PASSWORD.txt
+  MYSQL_PASSWORD:
+    file: ../secrets/MYSQL_PASSWORD.txt
+  WP_ADMIN_PASSWORD:
+    file: ../secrets/WP_ADMIN_PASSWORD.txt
+  WP_USER_PASSWORD:
+    file: ../secrets/WP_USER_PASSWORD.txt
 
 volumes:
   db-data:

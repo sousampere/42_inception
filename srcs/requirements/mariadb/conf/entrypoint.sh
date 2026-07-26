@@ -18,11 +18,11 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
         sleep 1
     done
 
-    # Set up db variables
+    # Set up db variables from Docker secrets
     MYSQL_DATABASE=${MYSQL_DATABASE:-wordpress}
     MYSQL_USER=${MYSQL_USER:-wp_user}
-    MYSQL_PASSWORD=${MYSQL_PASSWORD:-wp_password}
-    MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_password}
+    MYSQL_PASSWORD=$(cat /run/secrets/MYSQL_PASSWORD)
+    MYSQL_ROOT_PASSWORD=$(cat /run/secrets/MYSQL_ROOT_PASSWORD)
 
     echo "Creating database '$MYSQL_DATABASE' and user '$MYSQL_USER'..."
 

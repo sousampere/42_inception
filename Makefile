@@ -7,7 +7,6 @@ re: clean install
 	docker compose -f srcs/docker-compose.yml build wordpress mariadb nginx
 
 install:
-	docker swarm init
 	mkdir $(VOLUMES_LOCATION)/mysql
 	mkdir $(VOLUMES_LOCATION)/wordpress
 	docker compose -f srcs/docker-compose.yml build
@@ -33,6 +32,3 @@ install-docker:
 	sudo apt install -y docker.io docker-compose
 
 clean: clear_containers clear_volumes
-
-inject_secrets:
-	echo "Injecting secrets..."

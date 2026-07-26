@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Read Docker secrets for sensitive credentials
+MYSQL_PASSWORD=$(cat /run/secrets/MYSQL_PASSWORD)
+WP_ADMIN_PASSWORD=$(cat /run/secrets/WP_ADMIN_PASSWORD)
+WP_USER_PASSWORD=$(cat /run/secrets/WP_USER_PASSWORD)
+
 # Wait for database running to prevent datarace
 until mariadb-admin ping -h"mariadb" --silent; do
     echo "Waiting for MariaDB to be ready..."
