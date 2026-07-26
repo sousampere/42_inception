@@ -65,6 +65,9 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     echo "[WP Progress] Adjusting permissions..."
     chown -R www-data:www-data /var/www/html
 
+    # Install adminer
+    wget https://github.com/vrana/adminer/releases/download/v5.5.1/adminer-5.5.1.php -O /var/www/html/adminer.php
+
 fi
 
 echo "[WP Progress] Done !"
