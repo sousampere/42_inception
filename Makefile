@@ -3,15 +3,13 @@
 VOLUMES_LOCATION = /Users/gaspard/data
 
 re: clean install
-	docker compose -f srcs/docker-compose.yaml build wordpress mariadb nginx
 	docker compose -f srcs/docker-compose.yaml down -v
+	docker compose -f srcs/docker-compose.yaml build wordpress mariadb nginx
 
 install:
 	mkdir $(VOLUMES_LOCATION)/mysql
 	mkdir $(VOLUMES_LOCATION)/wordpress
-	sudo docker build -t mariadb srcs/requirements/mariadb
-	sudo docker build -t wordpress srcs/requirements/wordpress
-	sudo docker build -t nginx srcs/requirements/nginx
+	docker compose -f srcs/docker-compose.yaml build
 
 run:
 	docker compose -f srcs/docker-compose.yaml up

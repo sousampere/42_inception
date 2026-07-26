@@ -10,9 +10,6 @@ RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 # Clean directory for wordpress
 RUN rm -rf /var/www/html/*
 
-# Copy theme
-COPY ./config/theme.zip /theme.zip
-
 # Run entrypoint
 COPY ./config/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
