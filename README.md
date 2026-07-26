@@ -1,6 +1,7 @@
 *This project has been created as part of the 42 curriculum by gtourdia*
 
-# 42_inception
+# 42 Inception
+
 42 project about creating docker-containers to ship applications executable on any machine
 
 <p align="center">

@@ -52,7 +52,7 @@ Else :
 ## Start the docker containers
 
 ```bash
-docker compose -f srcs/docker-compose.yaml up
+docker compose -f srcs/docker-compose.yml up
 ```
 
 You can stop-it with CTRL+C.
@@ -61,7 +61,7 @@ You can stop-it with CTRL+C.
 
 ### Shell access
 
-Drop into a container's shell using `docker exec -it $$(docker compose -f srcs/docker-compose.yaml ps -q <container_name>) /bin/bash`
+Drop into a container's shell using `docker exec -it $$(docker compose -f srcs/docker-compose.yml ps -q <container_name>) /bin/bash`
 
 ### Kill all containers
 
