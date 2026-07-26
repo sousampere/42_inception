@@ -6,7 +6,7 @@ until mariadb-admin ping -h"mariadb" --silent; do
     sleep 2
 done
 
-echo 'mariadb ready.'
+echo '[WP Progress] Mariadb ready. Proceeding...'
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 
@@ -14,7 +14,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     wp core download --allow-root --path='/var/www/html' --force
 
     # Generate wp-config.php with database credentials from environment
-    echo "Configuring wordpress database..."
+    echo "[WP Progress] Configuring wordpress database..."
     wp config create \
         --dbname="${MYSQL_DATABASE}" \
         --dbuser="${MYSQL_USER}" \
@@ -24,7 +24,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --allow-root
 
     # Run core installation
-    echo "Setting up wordpress..."
+    echo "[WP Progress] Setting up wordpress..."
     wp core install \
         --url="${DOMAIN_NAME}" \
         --title="${WP_TITLE}" \
@@ -36,7 +36,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --allow-root
 
     # Create the secondary non-admin user (Inception requirement)
-    echo "Creating non-admin user..."
+    echo "[WP Progress] Creating non-admin user..."
     wp user create \
         "${WP_USER}" \
         "${WP_USER_EMAIL}" \
@@ -46,14 +46,16 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --allow-root
 
     # Install the theme
-    echo "Installing theme..."
+    echo "[WP Progress] Installing theme..."
     wp theme install blocksy --activate --path='/var/www/html' --allow-root
 
     # Ensure correct permissions on host/volume files
-    echo "Adjusting permissions..."
+    echo "[WP Progress] Adjusting permissions..."
     chown -R www-data:www-data /var/www/html
 
 fi
+
+echo "[WP Progress] Done !"
 
 # Configure PHP-FPM to listen on TCP port 9000 (nginx connects via fastcgi_pass)
 sed -i 's|^listen = /run/php/php8.2-fpm.sock|listen = 0.0.0.0:9000|' /etc/php/8.2/fpm/pool.d/www.conf

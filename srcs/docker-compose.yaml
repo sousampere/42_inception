@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
 
@@ -21,8 +21,6 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-    - 3306:3306
     networks:
       devnetwork:
     volumes:
@@ -32,8 +30,6 @@ services:
     build: requirements/wordpress
     depends_on: ['mariadb']
     restart: always
-    ports:
-    - 9000:9000
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -64,10 +60,10 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/gtourdia/data/mysql'
+      device: '/Users/gaspard/data/mysql'
   wp-data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/gtourdia/data/wordpress'
+      device: '/Users/gaspard/data/wordpress'
