@@ -1,14 +1,14 @@
 
 
-VOLUMES_LOCATION = /Users/gaspard/data
+VOLUMES_LOCATION = /home/gtourdia/data
 
 re: clean install
 	docker compose -f srcs/docker-compose.yml down -v
 	docker compose -f srcs/docker-compose.yml build wordpress mariadb nginx
 
 install:
-	mkdir $(VOLUMES_LOCATION)/mysql
-	mkdir $(VOLUMES_LOCATION)/wordpress
+	mkdir -p $(VOLUMES_LOCATION)/mysql
+	mkdir -p $(VOLUMES_LOCATION)/wordpress
 	docker compose -f srcs/docker-compose.yml build
 
 run:
